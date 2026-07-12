@@ -17,21 +17,18 @@
     --shadow:  rgba(200,146,42,0.35);
   }
 
-
-
-  body {
-    min-height: 100vh;
-    background: var(--dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Lora', serif;
-    padding: 20px;
-    overflow: hidden;
-    position: relative;
-  }
-
+body {
+  min-height: 100vh;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Mengatur posisi mulai dari atas agar tidak terpotong */
+  font-family: 'Lora', serif;
+  padding: 40px 20px; /* Menambah jarak atas/bawah agar lebih naik dan proporsional */
+  overflow-y: auto; /* Mengizinkan scroll vertikal jika konten melebihi layar */
+  position: relative;
+}
   /* Batik-like background pattern */
   body::before {
     content: '';
@@ -47,16 +44,12 @@
     position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8922a' fill-opacity='0.04'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     pointer-events: none;
-  }
+    }
+    
+  /* ==========================================
+   HEADER & WRAPPER SECTION
+   ====================================*/
 
-  .wrapper {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 380px;
-  }
-
-  /* Header */
   .header {
     text-align: center;
     margin-bottom: 20px;
