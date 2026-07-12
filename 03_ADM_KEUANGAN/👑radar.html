@@ -75,7 +75,31 @@ async function cekSinyal() {
 // Auto cek pas buka halaman, lalu ulang tiap 15 detik otomatis
 cekSinyal();
 setInterval(cekSinyal, 15000);
+<!-- ============================================================
+     INIT & RUNNING SYSTEM (DIPERBAIKI)
+     ============================================================ -->
+<script>
+  // Pastikan fungsi ini dideklarasikan di bagian atas/script lain, 
+  // jika tidak ada, beri tanda komentar (//) agar tidak memicu error.
+  if (typeof buildDots === 'function') buildDots();
+  if (typeof applyWallpaper === 'function') applyWallpaper(0);
+  if (typeof startWallpaperTimer === 'function') startWallpaperTimer();
+  if (typeof buildGallery === 'function') buildGallery();
+
+  // Perbaikan penutupan fungsi modal click yang jebol tadi
+  const modalDrive = document.getElementById('peringatan-drive-modal');
+  if (modalDrive) {
+      modalDrive.addEventListener('click', function(e) {
+          if(e.target === this && typeof tutupPeringatan === 'function') {
+              tutupPeringatan();
+          }
+      });
+  }
 </script>
+
+<!-- ⛑️ AGEN ALWI GRANDLEW -->
+<script src="components/agen_alwi.js"></script>
+
 </body>
 </html>
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html><body style="background:#000;color:#0f0;font:16px monospace;padding:10px">
+<b>DARURAT 3G KALTENG v2 (Anti-Putus)</b><hr>
+       
+
+  <!-- 1. INDIKATOR JARINGAN -->
+<div id="status-sinyal" style="background:#222;padding:5px;margin-bottom:10px">
+  Status: <span id="koneksi">Mengecek jaringan...</span>
+</div>
+
+<!-- 2. GOOGLE TEKS -->
+<b>1. GOOGLE TEKS</b><br>
+<form action="https://google.com" method="get">
+<input type="hidden" name="lite" value="1">
+<input name="q" placeholder="Cari..." style="width:100%;background:#111;color:#0f0;bord>
+<button style="background:#0f0;color:#000;border:none;padding:5px 10px;margin-top:5px">>
+
+<!-- 3. JODOH RT -->
+<b>2. JODOH RT</b><br>
+Nama: <input id="n" style="background:#111;color:#0f0;border:1px solid #0f0"><br>
+Wa: <input id="w" style="background:#111;color:#0f0;border:1px solid #0f0"><br>
+<button onclick="daftar()" style="background:#0f0;color:#000;border:none;padding:5px 10>
+<div id="list" style="margin-top:10px"></div><hr>
+
+<!-- 4. SMS CEPAT -->
+<b>3. SMS CEPAT</b><br>
+<a href="sms:?body=Halo,%20saya%20butuh%20bantuan%20di%20PKY" style="color:#0f0;font-we>
+
+<script>
+// Cek status koneksi browser secara real-time
+function updateSinyal() {
+  const kon = document.getElementById('koneksi');
+  if (navigator.onLine) {
+    kon.innerHTML = "<span style='color:#0f0'>ONLINE (Siap kirim ke AI)</span>";
+  } else {
+    kon.innerHTML = "<span style='color:#f00'>OFFLINE (Gunakan SMS dulu)</span>";
+  }
+}
+window.addEventListener('online', updateSinyal);
+window.addEventListener('offline', updateSinyal);
+updateSinyal();
+
+// Fungsi simpan lokal (0 kuota)
+function daftar(){
+  if(!n.value || !w.value) return alert('Isi nama dan WA!');
+  let d = JSON.parse(localStorage.jodoh||'[]');
+  d.push({n:n.value,w:w.value});
+  localStorage.jodoh = JSON.stringify(d);
+  tampil Data();
+  n.value = ''; w.value = '';
+}
+
+function tampilData() {
+  let d = JSON.parse(localStorage.jodoh||'[]');
+  list.innerHTML = d.map(x=>'• '+x.n+' | WA: '+x.w+'<br>').join('');
+}
+// Load data otomatis saat dibuka
+tampilData();
+
+<!-- ============================================================
+     INIT & RUNNING SYSTEM (DIPERBAIKI)
+     ============================================================ -->
+<script>
+  // Pastikan fungsi ini dideklarasikan di bagian atas/script lain, 
+  // jika tidak ada, beri tanda komentar (//) agar tidak memicu error.
+  if (typeof buildDots === 'function') buildDots();
+  if (typeof applyWallpaper === 'function') applyWallpaper(0);
+  if (typeof startWallpaperTimer === 'function') startWallpaperTimer();
+  if (typeof buildGallery === 'function') buildGallery();
+
+  // Perbaikan penutupan fungsi modal click yang jebol tadi
+  const modalDrive = document.getElementById('peringatan-drive-modal');
+  if (modalDrive) {
+      modalDrive.addEventListener('click', function(e) {
+          if(e.target === this && typeof tutupPeringatan === 'function') {
+              tutupPeringatan();
+          }
+      });
+  }
+</script>
+
+<!-- ⛑️ AGEN ALWI GRANDLEW -->
+<script src="components/agen_alwi.js"></script>
+
+</body>
+</html>
+                                                                                       
