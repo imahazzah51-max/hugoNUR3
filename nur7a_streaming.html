@@ -61,28 +61,49 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--hutan); mi
 </div>
 <div class="grid-streaming">
 <!-- MEMBER 1 - LELAKI -->
-<div class="kartu" id="room-M001">
-<div class="kartu-strip"></div>
-<div class="kartu-head">
-<h3>👨‍🎤 Bang Jago Nur</h3>
-<span class="badge-level">PLATINUM</span>
-</div>
-<div class="avatar-3d">
-  <span class="live-badge">● LIVE</span> 
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v20.0"></script>
+<div class="kartu" id="room-M004"> 
+  <div class="kartu-strip"></div> 
   
-  <div class="fb-video" 
-       data-href="https://www.facebook.com/USERNAME/videos/ID_VIDEO_FB/" 
-       data-width="100%" 
-       data-show-text="false" 
-       data-autoplay="true" 
-       data-mute="1"
-       style="border-radius:12px; overflow:hidden;">
-  </div>
-  <span class="gender-tag">♀ PEREMPUAN</span>
+  <div class="kartu-head"> 
+    <h3>👩‍🏫 Teh Cahaya Makrifat</h3> 
+    <span class="badge-level">BRONZE</span> 
+  </div> 
+
+  <div class="avatar-3d" 
+       style="position:relative; cursor:pointer; transition:transform .2s;" 
+       onmouseover="this.style.transform='scale(1.03)'" 
+       onmouseout="this.style.transform='scale(1)'"
+       onclick="window.open('https://www.facebook.com/100073277318665/videos/37019681831008354/', '_blank')">
+    <span class="live-badge">● LIVE</span> 
+    <img src="https://graph.facebook.com/37019681831008354/picture?type=large" alt="Teh Cahaya" style="width:100%; height:200px; object-fit:cover; border-radius:12px; background:#000;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:50px; text-shadow:0 0 15px #000, 0 0 5px #1877F2;">▶️</div>
+    <span class="gender-tag">♀ PEREMPUAN</span>
+  </div> 
+
+  <div class="info-panel"> 
+    <div class="baris"> 
+      <span class="label-info">🆔 ID Member</span> 
+      <span class="nilai-info">M004</span> 
+    </div> 
+    <div class="baris"> 
+      <span class="label-info">💰 Celengan Saldo</span> 
+      <span class="saldo-nilai" id="saldo-M004">Rp 0</span> 
+    </div> 
+  </div> 
+
+  <div class="komentar-log-boks"> 
+    <textarea class="komentar-textarea" placeholder="Komentar log manifest..." id="text-M004"></textarea> 
+  </div> 
+
+  <div class="tombol-grid"> 
+    <button class="btn-aksi btn-bom" onclick="kirimAksi('M004','bom')">💣 Bom</button> 
+    <button class="btn-aksi btn-sandal" onclick="kirimAksi('M004','sandal')">🩴 Sandal</button> 
+    <button class="btn-aksi btn-gif" onclick="kirimAksi('M004','gif')">🎁 Gif Koin</button> 
+    <button class="btn-aksi btn-vchmur" onclick="kirimAksi('M004','voucherMur')"> 🎫 Vch Mur</button> 
+  </div> 
 </div>
-<div class="info-panel">
+  
+  <div class="info-panel">
 <div class="baris"> <span class="label-info">🆔 ID Member</span> <span class="nilai-info">M001</span> </div>
 <div class="baris"> <span class="label-info">💰 Celengan Saldo</span> <span class="saldo-nilai" id="saldo-M001">Rp 0</span> </div>
 </div>
