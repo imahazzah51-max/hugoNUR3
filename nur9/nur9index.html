@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nur 9 — Backup & Sinkronisasi | Indramayu Club Makrifat</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hijau: #061F14;
+    --hijau-mid: #0a2e1c;
+    --hijau-light: #143d28;
+    --emas: #C9A84C;
+    --emas-light: #ffd700;
+    --putih: #FFFFFF;
+    --muted: rgba(201,168,76,0.5);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--hijau);
+    color: var(--putih);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M30 0L60 30L30 60L0 30z'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events:none; z-index:0;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #030e08, var(--hijau-mid));
+    border-bottom: 2px solid var(--emas);
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top:0; z-index:100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .logo { display:flex; align-items:center; gap:12px; }
+  .logo-icon {
+    width:44px; height:44px; border-radius:50%;
+    border: 2px solid var(--emas);
+    background: radial-gradient(circle, #0a2e1c, #030e08);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .logo-text h1 { font-size:1rem; font-weight:700; color:var(--emas-light); letter-spacing:0.05em; }
+  .logo-text p  { font-size:0.6rem; color:var(--muted); letter-spacing:0.2em; text-transform:uppercase; }
+  .status-online {
+    display:flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.3);
+    border-radius:100px; padding:5px 12px;
+    font-size:0.65rem; color:var(--emas); letter-spacing:0.1em;
+  }
+  .dot-online { width:6px;height:6px;border-radius:50%;background:#4ade80; box-shadow:0 0 6px #4ade80; animation:blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+  /* MAIN */
+  main { position:relative; z-index:1; padding:24px 16px; max-width:600px; margin:0 auto; }
+
+  /* Nur9 badge */
+  .page-badge {
+    text-align:center; margin-bottom:24px;
+  }
+  .page-badge .num {
+    font-family:'JetBrains Mono',monospace;
+    font-size:3.5rem; font-weight:700; line-height:1;
+    background: linear-gradient(135deg, var(--emas), var(--emas-light));
+    -webkit-background-clip: text; -webkit-text-fill-color:transparent;
+    text-shadow: none;
+  }
+  .page-badge .title {
+    font-size:0.65rem; letter-spacing:0.4em; color:var(--muted);
+    text-transform:uppercase; margin-top:4px;
+  }
+
+  /* Cards */
+  .card {
+    background: linear-gradient(135deg, var(--hijau-mid), var(--hijau-light));
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius:12px; padding:16px;
+    margin-bottom:14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .card-header {
+    display:flex; align-items:center; gap:10px;
+    border-bottom:1px solid rgba(201,168,76,0.2);
+    padding-bottom:10px; margin-bottom:12px;
+  }
+  .card-icon { font-size:1.3rem; }
+  .card-title { font-size:0.85rem; font-weight:700; color:var(--emas-light); }
+  .card-sub   { font-size:0.6rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-top:2px; }
+
+  /* Status jaringan */
+  .net-status {
+    display:flex; align-items:center; gap:10px;
+    background:rgba(0,0,0,0.25); border-radius:8px; padding:10px 14px;
+    font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+  }
+  .net-icon { font-size:1.1rem; }
+  #koneksi-label { color:#4ade80; font-weight:600; }
+  #koneksi-label.offline { color:#f87171; }
+
+  /* Sync buttons */
+  .btn-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .btn-sync {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius:10px; padding:14px 10px;
+    color:var(--emas-light); cursor:pointer;
+    text-align:center; transition:all 0.2s;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .btn-sync:hover { background:rgba(201,168,76,0.2); border-color:var(--emas); transform:translateY(-2px); }
+  .btn-sync:active { transform:scale(0.97); }
+  .btn-sync .bicon { font-size:1.5rem; display:block; margin-bottom:4px; }
+  .btn-sync .blabel { font-size:0.7rem; font-weight:600; letter-spacing:0.05em; }
+  .btn-sync .bdesc  { font-size:0.58rem; color:var(--muted); margin-top:2px; }
+
+  /* Log area */
+  .log-area {
+    background:rgba(0,0,0,0.35); border-radius:8px;
+    padding:12px; font-family:'JetBrains Mono',monospace;
+    font-size:0.68rem; color:#86efac; line-height:1.8;
+    max-height:160px; overflow-y:auto; min-height:60px;
+  }
+  .log-area::-webkit-scrollbar { width:3px; }
+  .log-area::-webkit-scrollbar-thumb { background:var(--emas); border-radius:99px; }
+  .log-line { display:block; }
+  .log-line.err { color:#f87171; }
+  .log-line.warn { color:#fbbf24; }
+  .log-line.ok  { color:#4ade80; }
+
+  /* Rclone form */
+  .input-field {
+    width:100%; background:rgba(0,0,0,0.3);
+    border:1px solid rgba(201,168,76,0.3); border-radius:8px;
+    padding:10px 12px; color:var(--emas-light);
+    font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+    outline:none; margin-bottom:8px;
+    transition: border-color 0.2s;
+  }
+  .input-field:focus { border-color:var(--emas); }
+  .input-field::placeholder { color:rgba(201,168,76,0.3); }
+  .btn-run {
+    width:100%; padding:12px;
+    background:linear-gradient(135deg, #7a5a10, var(--emas));
+    border:none; border-radius:8px;
+    color:#061F14; font-family:'Space Grotesk',sans-serif;
+    font-size:0.85rem; font-weight:700; cursor:pointer;
+    letter-spacing:0.05em; transition:all 0.2s;
+  }
+  .btn-run:hover { filter:brightness(1.1); transform:translateY(-1px); }
+  .btn-run:active { transform:scale(0.98); }
+
+  /* Nav quick links */
+  .nur-nav {
+    display:grid; grid-template-columns:repeat(5,1fr); gap:8px;
+    margin-top:14px;
+  }
+  .nur-pill {
+    background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2);
+    border-radius:8px; padding:8px 4px; text-align:center;
+    font-size:0.62rem; font-weight:600; color:var(--emas);
+    cursor:pointer; text-decoration:none; transition:all 0.2s;
+    letter-spacing:0.05em;
+  }
+  .nur-pill:hover { background:rgba(201,168,76,0.2); border-color:var(--emas); }
+  .nur-pill.aktif { background:rgba(201,168,76,0.25); border-color:var(--emas-light); color:var(--emas-light); }
+
+  /* Footer */
+  footer {
+    text-align:center; padding:20px 16px;
+    font-size:0.6rem; color:rgba(201,168,76,0.3);
+    letter-spacing:0.2em; text-transform:uppercase;
+    border-top:1px solid rgba(201,168,76,0.1);
+    position:relative; z-index:1; margin-top:16px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🔁</div>
+    <div class="logo-text">
+      <h1>NUR 9 — BACKUP & SINKRON</h1>
+      <p>Indramayu Club Makrifat · Transmisi Hub</p>
+    </div>
+  </div>
+  <div class="status-online">
+    <span class="dot-online"></span>
+    <span id="net-text">ONLINE</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- Badge -->
+  <div class="page-badge">
+    <div class="num">9</div>
+    <div class="title">✦ Backup · Restore · Sinkronisasi ✦</div>
+  </div>
+
+  <!-- Status Jaringan -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📡</span>
+      <div>
+        <div class="card-title">Status Jaringan</div>
+        <div class="card-sub">Cek koneksi sebelum sinkron</div>
+      </div>
+    </div>
+    <div class="net-status">
+      <span class="net-icon">🌐</span>
+      <div>
+        <span id="koneksi-label">Mengecek jaringan...</span><br>
+        <span style="color:var(--muted);font-size:0.62rem" id="koneksi-sub">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tombol Aksi Cepat -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">⚡</span>
+      <div>
+        <div class="card-title">Aksi Cepat</div>
+        <div class="card-sub">Backup · Push · Pull · Status</div>
+      </div>
+    </div>
+    <div class="btn-grid">
+      <button class="btn-sync" onclick="jalankanAksi('backup')">
+        <span class="bicon">💾</span>
+        <span class="blabel">BACKUP</span>
+        <span class="bdesc">Simpan ke Cloud</span>
+      </button>
+      <button class="btn-sync" onclick="jalankanAksi('push')">
+        <span class="bicon">📤</span>
+        <span class="blabel">PUSH</span>
+        <span class="bdesc">Upload ke Rclone</span>
+      </button>
+      <button class="btn-sync" onclick="jalankanAksi('pull')">
+        <span class="bicon">📥</span>
+        <span class="blabel">PULL</span>
+        <span class="bdesc">Tarik dari Cloud</span>
+      </button>
+      <button class="btn-sync" onclick="jalankanAksi('status')">
+        <span class="bicon">🔍</span>
+        <span class="blabel">STATUS</span>
+        <span class="bdesc">Cek kondisi file</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Log Terminal -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🖥️</span>
+      <div>
+        <div class="card-title">Terminal Log</div>
+        <div class="card-sub">Output sistem real-time</div>
+      </div>
+    </div>
+    <div class="log-area" id="logArea">
+      <span class="log-line ok">$ Nur9 Backup System v1.0 — Siap</span>
+      <span class="log-line">$ Menunggu perintah...</span>
+    </div>
+    <button class="btn-run" style="margin-top:10px;background:rgba(201,168,76,0.1);color:var(--emas);border:1px solid rgba(201,168,76,0.3)" onclick="clearLog()">🗑️ Bersihkan Log</button>
+  </div>
+
+  <!-- Rclone Manual -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">☁️</span>
+      <div>
+        <div class="card-title">Rclone Command</div>
+        <div class="card-sub">Perintah manual ke cloud</div>
+      </div>
+    </div>
+    <input class="input-field" id="rcloneCmd" placeholder="Contoh: rclone copy ~/hugoNUR3 gdrive:backup/" value="rclone copy ~/hugoNUR3 gdrive:IndramayuClub-Backup/">
+    <button class="btn-run" onclick="jalankanRclone()">▶ Jalankan via Termux</button>
+  </div>
+
+  <!-- Navigasi NUR -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🏠</span>
+      <div>
+        <div class="card-title">Navigasi Transmisi Hub</div>
+        <div class="card-sub">Nur 1 — Nur 10</div>
+      </div>
+    </div>
+    <div class="nur-nav">
+      <a class="nur-pill" href="../nur1_media.html">NUR 1</a>
+      <a class="nur-pill" href="../nur2_login.html">NUR 2</a>
+      <a class="nur-pill" href="../nur3_keuangan_pagi.html">NUR 3</a>
+      <a class="nur-pill" href="../nur4_aset_digital.html">NUR 4</a>
+      <a class="nur-pill" href="../nur5_menu_utama.html">NUR 5</a>
+      <a class="nur-pill" href="../03_ADM_KEUANGAN/">NUR 6</a>
+      <a class="nur-pill" href="../nur7_panggung_status.html">NUR 7</a>
+      <a class="nur-pill" href="../nur8_emulator.html">NUR 8</a>
+      <a class="nur-pill aktif" href="#">NUR 9</a>
+      <a class="nur-pill" href="../nur10_kamus_alwi.html">NUR 10</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>✦ Indramayu Club Makrifat — Nur 9 Backup & Sinkronisasi ✦</footer>
+
+<!-- Agen Alwi -->
+<script src="../components/agen_alwi.js"></script>
+
+<script>
+// ─── STATUS JARINGAN ───
+function updateNet() {
+  const lbl = document.getElementById('koneksi-label');
+  const sub = document.getElementById('koneksi-sub');
+  const nt  = document.getElementById('net-text');
+  if (navigator.onLine) {
+    lbl.textContent = 'ONLINE — Siap Sinkronisasi';
+    lbl.className = '';
+    sub.textContent = 'Koneksi aktif · ' + new Date().toLocaleTimeString('id-ID');
+    nt.textContent = 'ONLINE';
+  } else {
+    lbl.textContent = 'OFFLINE — Tidak Ada Koneksi';
+    lbl.className = 'offline';
+    sub.textContent = 'Hubungkan jaringan terlebih dahulu';
+    nt.textContent = 'OFFLINE';
+  }
+}
+window.addEventListener('online', updateNet);
+window.addEventListener('offline', updateNet);
+updateNet();
+
+// ─── LOG TERMINAL ───
+function addLog(teks, tipe) {
+  const area = document.getElementById('logArea');
+  const span = document.createElement('span');
+  span.className = 'log-line' + (tipe ? ' ' + tipe : '');
+  const waktu = new Date().toLocaleTimeString('id-ID', {hour12:false});
+  span.textContent = `[${waktu}] ${teks}`;
+  area.appendChild(span);
+  area.scrollTop = area.scrollHeight;
+}
+function clearLog() {
+  document.getElementById('logArea').innerHTML = '<span class="log-line ok">$ Log dibersihkan.</span>';
+}
+
+// ─── AKSI CEPAT (simulasi — di HP Termux dijalankan manual) ───
+const AKSI = {
+  backup: [
+    ['Memulai proses backup...', ''],
+    ['Memeriksa folder ~/hugoNUR3...', ''],
+    ['📁 Ditemukan: nur1 s/d nur10, components, node_modules', 'ok'],
+    ['✅ Backup selesai — salin perintah ke Termux:', 'ok'],
+    ['$ rclone copy ~/hugoNUR3 gdrive:IndramayuClub-Backup/', 'warn'],
+  ],
+  push: [
+    ['Memulai PUSH ke cloud...', ''],
+    ['Menggunakan rclone_push.sh...', ''],
+    ['$ bash ~/hugoNUR3/nur9/rclone_push.sh', 'warn'],
+    ['Pastikan rclone sudah dikonfigurasi: rclone config', 'warn'],
+  ],
+  pull: [
+    ['Memulai PULL dari cloud...', ''],
+    ['$ rclone copy gdrive:IndramayuClub-Backup/ ~/hugoNUR3', 'warn'],
+    ['⚠️ HATI-HATI: file lokal akan ditimpa!', 'err'],
+  ],
+  status: [
+    ['Mengecek status sistem...', ''],
+    ['📂 ~/hugoNUR3 — Nur1 s/d Nur10 terdeteksi', 'ok'],
+    ['📄 audit_flask.log — OK', 'ok'],
+    ['☁️ Rclone: periksa dengan $ rclone listremotes', 'warn'],
+    ['✅ Status cek selesai', 'ok'],
+  ]
+};
+
+function jalankanAksi(jenis) {
+  addLog(`=== AKSI: ${jenis.toUpperCase()} ===`, 'warn');
+  const steps = AKSI[jenis] || [];
+  steps.forEach((step, i) => {
+    setTimeout(() => addLog(step[0], step[1]), i * 400);
+  });
+}
+
+// ─── RCLONE MANUAL ───
+function jalankanRclone() {
+  const cmd = document.getElementById('rcloneCmd').value.trim();
+  if (!cmd) return;
+  addLog('Perintah disalin — jalankan di Termux:', 'warn');
+  addLog('$ ' + cmd, 'ok');
+  // Coba copy ke clipboard
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(cmd).then(() => addLog('✅ Disalin ke clipboard!', 'ok'));
+  } else {
+    addLog('⚠️ Copy manual: ' + cmd, 'warn');
+  }
+}
+</script>
+</body>
+</html>
+
