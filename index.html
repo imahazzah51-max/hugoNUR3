@@ -1,83 +1,122 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal Pembelajaran - Alwi Kamus Indramayu</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUR7 STREAM - ALWI KAMUS INDRAMAYU</title>
 
-<meta property="og:title" content="Portal Pembelajaran Alwi Kamus Indramayu">
-<meta property="og:description" content="Pusat informasi dan layanan digital komunitas Indramayu Club.">
-<meta property="og:image" content="https://imahazzah51-max.github.io/hugoNUR3/Screenshot_2026_0713_111810.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://imahazzah51-max.github.io/hugoNUR3/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Alwi Kamus Indramayu">
-<meta name="description" content="Portal informasi digital komunitas Indramayu Club">
+  <!-- FIX: Meta Open Graph Disamakan dengan Root URL GitHub Pages untuk Lolos Facebook -->
+  <meta property="og:title" content="ALWI KAMUS INDRAMAYU | UJI COBA GRATIS">
+  <meta property="og:description" content="BOM SANDAL KOIN LIVE M001-M010. Gratis Sampe 30 Juli 2026!">
+  <meta property="og:image" content="https://imahazzah51-max.github.io/hugoNUR3/Screenshot_2026_0713_111810.jpg">
+  <meta property="og:url" content="https://imahazzah51-max.github.io/hugoNUR3/index.html">
 
-<base href="https://imahazzah51-max.github.io/hugoNUR3/">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      overflow: hidden;
+      font-family: 'Inter', Arial, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;overflow:hidden;font-family:'Inter',Arial,sans-serif;height:100vh;width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .panggung {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      padding-bottom: 140px; 
+    }
 
-/* PANGGUNG DENGAN DUAL SCREEN (IMAGE + FALLBACK LAYER) */
-.panggung{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:15px;padding-bottom:220px;position:relative}
-.canvas-wrapper{width:100%;max-width:450px;height:70%;max-height:500px;position:relative;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.6);border:1px solid #222}
+    .panggung img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(255, 215, 0, 0.2);
+    }
 
-/* Background visual yen gambare gagal metu, tetep ketok mewah & canggih */
-.fallback-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg, #111 0%, #051937 50%, #001020 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#888;text-align:center;padding:20px;z-index:1}
-.fallback-bg .radar-icon{font-size:48px;margin-bottom:15px;animation:pulse 2s infinite;color:#007bff}
-.fallback-bg h2{font-size:16px;color:#eee;margin-bottom:8px;font-weight:600;letter-spacing:0.5px}
-.fallback-bg p{font-size:12px;color:#666}
+    .tombol-wrapper {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+      text-align: center;
+    }
 
-/* Gambar Utama */
-.panggung img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:2;transition:opacity 0.3s ease}
-.panggung img:not([src]), .panggung img[src=""]{opacity:0}
+    .badge-sultan {
+      background: rgba(255, 0, 0, 0.85);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      align-self: center;
+      box-shadow: 0 2px 8px rgba(255,0,0,0.3);
+    }
 
-/* TOMBOL WRAPPER */
-.tombol-wrapper{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);width:92%;max-width:340px;display:flex;flex-direction:column;gap:10px;z-index:999;text-align:center}
-.badge-sultan{background:rgba(0, 123, 255, 0.15);color:#3897ff;border:1px solid rgba(0, 123, 255, 0.4);font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:0.08em;align-self:center;text-transform:uppercase}
-.btn-sultan{display:block;width:100%;padding:13px;background:linear-gradient(135deg,#007bff,#0056b3);color:#fff;font-weight:700;font-size:13px;text-decoration:none;border-radius:10px;box-shadow:0 4px 15px rgba(0,123,255,0.3);transition:all 0.2s}
-.btn-sultan:active{transform:scale(0.98);background:linear-gradient(135deg,#0069d9,#004085)}
-.btn-fb-sultan{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;background:#1877f2;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;border-radius:10px;box-shadow:0 4px 12px rgba(24,119,242,0.2)}
+    .btn-sultan {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #c9a227, #f0c040);
+      color: #000;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(201, 162, 39, 0.4);
+      transition: transform 0.1s;
+    }
 
-/* DROPUP MENU SYSTEM */
-.dropup{position:relative;display:inline-block;width:100%}
-.dropup-btn{width:100%;padding:13px;background:#16161a;color:#fff;border:1px solid #2a2a30;font-weight:700;font-size:13px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.2s}
-.dropup-btn:hover{background:#22222a}
-.dropup-content{display:none;position:absolute;bottom:100%;left:0;width:100%;background:#111115;border:1px solid #2a2a30;border-radius:10px;margin-bottom:8px;max-height:260px;overflow-y:auto;z-index:1000;box-shadow:0 -5px 25px rgba(0,0,0,0.7)}
-.dropup-content a{color:#b3b3b3;padding:12px 16px;text-decoration:none;display:block;font-size:12.5px;text-align:left;border-bottom:1px solid #1f1f25;transition:all 0.15s}
-.dropup-content a:hover{background:#007bff;color:#fff;padding-left:20px}
-.show-dropup{display:block!important}
+    .btn-fb-sultan {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #1877f2, #166fe5);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+    }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.6; }
-}
-</style>
+    .btn-sultan:active, .btn-fb-sultan:active {
+      transform: scale(0.98);
+    }
+  </style>
 </head>
 <body>
 
-<div class="panggung">
-  <div class="canvas-wrapper">
-    <div class="fallback-bg">
-      <div class="radar-icon">📡</div>
-      <h2>NUR_ENGINE_GATEWAY</h2>
-      <p>Sektor Digital Indramayu Club - Terhubung</p>
-    </div>
-    <img src="Screenshot_2026_0713_111810.jpg" alt="Portal Alwi Kamus Indramayu" onerror="handleImageError(this)">
+  <!-- AREA POSTER -->
+  <div class="panggung">
+    <img src="https://imahazzah51-max.github.io/hugoNUR3/Screenshot_2026_0713_111810.jpg" alt="Panggung Sultan">
   </div>
-</div>
 
-<div class="tombol-wrapper">
-  <div class="badge-sultan">✨ PORTAL INFORMASI RESMI ✨</div>
+  <!-- AREA TOMBOL BAWAH -->
+  <div class="tombol-wrapper">
+    <div class="badge-sultan">🔥 GRATIS SAMPE 30 JULI 2026 🔥</div>
 
-  <a href="nur1_media.html" class="btn-sultan">🏁 MASUK KE HALAMAN UTAMA 📲 🏁</a>
-
-  <div class="dropup">
-    <button class="dropup-btn" onclick="toggleDropup()">🏛️ DAFTAR MENU ▾</button>
+    <!-- Tautan diarahkan ke android.html dengan teks akademi bersih -->
+    <a href="android.html" class="btn-sultan">🏁🎳 MASUK DI AKADEMI KAMI 🛠 🏁</a>
     <div class="dropup-content" id="myDropup">
       <a href="nur1_media.html">🏠 Nur 1 - Halaman Utama</a>
       <a href="nur2_login.html">🔐 Nur 2 - Halaman Masuk</a>
@@ -86,41 +125,27 @@ body{background:#0a0a0a;overflow:hidden;font-family:'Inter',Arial,sans-serif;hei
       <a href="nur3_keuangan_pagi.html">💰 Nur 3 - Laporan</a>
       <a href="nur4_aset_digital.html">💎 Nur 4 - Konten Digital</a>
       <a href="nur5_menu_utama.html">🎲 Nur 5 - Menu Aktivitas</a>
-      <a href="03_ADM_KEUANGAN/">🏦 Nur 6 - Data</a>
-      <a href="nur7a_streaming.html">📹 Nur 7 - Siaran Langsung</a>
-      <a href="nur7b_live_member.html">👥 Nur 7 - Anggota</a>
+      
+      <!-- JALUR NUR 6: RADAR DATA UTAMA -->
+      <a href="03_ADM_KEUANGAN/👑radar.html">🏦 Nur 6 - Radar Admin Data</a>[span_3](start_span)[span_3](end_span)
+      
+      <a href="nur7a.html">📹 Nur 7 - Siaran Langsung</a>[span_4](start_span)[span_4](end_span)
+      <a href="nur7_live_member.html">👥 Nur 7 - Anggota</a>
       <a href="nur7_panggung_status.html">🔥 Nur 7 - Status</a>
-      <a href="nur8_emulator.html">🕹️ Nur 8 - Sistem</a>
-      <a href="03_ADM_KEUANGAN/nur9_beckup.html">🔁 Nur 9 - Backup</a>
+      
+      <!-- FIX JALUR NUR 8: SEKTOR GAME EMULATOR (TERHUBUNG KE INDEX CODES) -->
+      <a href="03_ADM_KEUANGAN/Nur8/index.html">🕹️ Nur 8 - Game & Sistem Emulator</a>[span_5](start_span)[span_5](end_span)
+      
+      <!-- JALUR NUR 9: BACKUP CENTER -->
+      <a href="03_ADM_KEUANGAN/Nur9/index.html">🔁 Nur 9 - Backup & Game Center</a>[span_6](start_span)[span_6](end_span)
+      
       <a href="nur10_kamus_alwi.html">🌟 Nur 10 - Kamus</a>
     </div>
+
+    <a href="https://www.facebook.com/IndramayuClubOfficial" target="_blank" class="btn-fb-sultan">
+      <span>👥</span> FACEBOOK GROUP
+    </a>
   </div>
 
-  <a href="https://www.facebook.com/IndramayuClubOfficial" target="_blank" class="btn-fb-sultan"><span>👥</span> KOMUNITAS FACEBOOK</a>
-</div>
-
-<script>
-// Fungsi Dropup
-function toggleDropup(){
-  document.getElementById("myDropup").classList.toggle("show-dropup");
-}
-
-// Fungsi proteksi yen gambar eror/gagal load saking repo
-function handleImageError(image) {
-  image.style.display = 'none'; // Singkirake elemen gambar kosong
-}
-
-window.onclick=function(event){
-  if(!event.target.matches('.dropup-btn')){
-    var dropdowns=document.getElementsByClassName("dropup-content");
-    for(var i=0;i<dropdowns.length;i++){
-      var openDropdown=dropdowns[i];
-      if(openDropdown.classList.contains('show-dropup')){
-        openDropdown.classList.remove('show-dropup');
-      }
-    }
-  }
-}
-</script>
 </body>
 </html>

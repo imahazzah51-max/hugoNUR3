@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard & Game Arisan ASEAN · Indramayu Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   RESET & VARIABEL
+══════════════════════════════════════════ */
+:root {
+  --emas       : #c9a84c;
+  --emas-muda  : #f0d070;
+  --emas-tua   : #7a5c1e;
+  --hitam      : #0d0d0d;
+  --gelap      : #1a1408;
+  --kartu      : #1e1608;
+  --border     : #3a2c0a;
+  --teks       : #e8d5a0;
+  --teks-redup : #9a8050;
+  --hijau      : #1a6b3a;
+  --merah      : #a82424;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  background: var(--hitam);
+  color: var(--teks);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ══════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════ */
+header {
+  background: linear-gradient(135deg, #0d0a02, #1a1408, #0d0a02);
+  border-bottom: 2px solid var(--emas-tua);
+  padding: 14px 20px 12px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(201,168,76,0.15);
+  position: sticky; top: 0; z-index: 100;
+}
+.bismillah { font-size: 14px; color: var(--emas); opacity: 0.7; margin-bottom: 4px; letter-spacing: 2px; }
+header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 5vw, 26px);
+  background: linear-gradient(135deg, var(--emas-tua), var(--emas), var(--emas-muda), var(--emas));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; letter-spacing: 3px;
+}
+.header-sub { font-size: 10px; color: var(--teks-redup); letter-spacing: 4px; margin-top: 3px; }
+
+/* ══════════════════════════════════════════
+   NAV LINKS
+══════════════════════════════════════════ */
+.nav-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; padding: 8px 16px; }
+.nav-link {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid var(--emas-tua);
+  color: var(--emas); font-size: 10px;
+  padding: 6px 14px; border-radius: 20px;
+  text-decoration: none; letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.nav-link:hover { background: var(--emas-tua); color: #000; }
+
+/* ══════════════════════════════════════════
+   TICKER
+══════════════════════════════════════════ */
+.ticker-wrap {
+  background: linear-gradient(135deg, #1a3a2a, #0d2010);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 6px 0; overflow: hidden; position: relative;
+  height: 30px;
+}
+.ticker-label {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--emas); color: #000;
+  font-size: 9px; font-weight: 800; letter-spacing: 1px;
+  padding: 0 10px; display: flex; align-items: center; z-index: 2;
+}
+.ticker-track { display: flex; animation: ticker 25s linear infinite; padding-left: 80px; white-space: nowrap; }
+.ticker-item { font-size: 11px; color: var(--emas); padding: 0 24px; letter-spacing: 0.5px; }
+.ticker-item span { color: rgba(255,255,255,0.7); font-weight: bold; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ══════════════════════════════════════════
+   MAIN CONTAINER
+══════════════════════════════════════════ */
+.main { flex: 1; max-width: 680px; margin: 0 auto; padding: 20px 16px; width: 100%; }
+
+/* WALLET SULTAN */
+.wallet-box {
+  background: linear-gradient(135deg, #221a0c, #0f0b04);
+  border: 1px solid var(--emas);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.wallet-item h4 { font-size: 10px; color: var(--teks-redup); text-transform: uppercase; margin-bottom: 5px; }
+.wallet-item p { font-size: 16px; font-weight: bold; color: var(--emas-muda); }
+
+/* GAME ARISAN BOARD */
+.arisan-card {
+  background: linear-gradient(135deg, var(--kartu), #150f03);
+  border: 2px solid var(--emas-tua);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(201,168,76,0.1);
+  margin-bottom: 20px;
+}
+.arisan-card h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  text-align: center;
+  color: var(--emas-muda);
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-size: 11px; color: var(--teks-redup); margin-bottom: 5px; text-transform: uppercase; }
+.form-control {
+  width: 100%;
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  font-family: 'Noto Sans', sans-serif;
+}
+.form-control:focus { border-color: var(--emas); outline: none; }
+
+/* NEGARA SELECTOR GRID */
+.asean-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 15px;
+}
+.negara-btn {
+  background: #141006;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--teks-redup);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.negara-btn.active {
+  background: rgba(201,168,76,0.15);
+  border-color: var(--emas);
+  color: #fff;
+}
+
+.btn-kocok {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--emas-tua), var(--emas));
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform 0.1s;
+}
+.btn-kocok:active { transform: scale(0.98); }
+
+/* ANIMASI KANTONG KOCOKAN */
+.kocokan-container {
+  text-align: center;
+  padding: 20px 0;
+  display: none;
+}
+.toples-arisan {
+  font-size: 60px;
+  animation: shake 0.5s ease infinite alternate;
+}
+@keyframes shake {
+  0% { transform: rotate(-10deg); }
+  100% { transform: rotate(10deg); }
+}
+
+/* PEMENANG BOX */
+.pemenang-box {
+  display: none;
+  background: linear-gradient(135deg, #102e1c, #07170e);
+  border: 1px solid var(--emas);
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+/* RIWAYAT BOX */
+.riwayat-section {
+  background: #120e05;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 15px;
+}
+.riwayat-section h3 { font-size: 14px; color: var(--emas); margin-bottom: 10px; }
+.riwayat-list { list-style: none; }
+.riwayat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 11px;
+  color: var(--teks-redup);
+  border-top: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحْمَنِ</div>
+  <h1>INDRAMAYU CLUB</h1>
+  <div class="header-sub">SEKTOR KREATIF • NUR 5</div>
+</header>
+
+<div class="nav-links">
+  <a href="nur1_media.html" class="nav-link">Portal Utama</a>
+  <a href="03_ADM_KEUANGAN/👑radar.html" class="nav-link">Radar Admin</a>[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)
+  <a href="03_ADM_KEUANGAN/Nur8/index.html" class="nav-link">Game Center</a>[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span)
+</div>
+
+<!-- RUNNING TEXT TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-label">INFO KAS</div>
+  <div class="ticker-track" id="tickerTrack">
+    <!-- Diisi Otomatis via JS -->
+  </div>
+</div>
+
+<div class="main">
+  
+  <!-- WALLET SULTAN -->
+  <div class="wallet-box">
+    <div class="wallet-item">
+      <h4>Saldo Coin Anda</h4>
+      <p id="saldoCoin">Rp 1.000.000</p>
+    </div>
+    <div class="wallet-item">
+      <h4>Voucher Kas</h4>
+      <p id="voucherKas">5 Pcs</p>
+    </div>
+  </div>
+
+  <!-- ARISAN GAME BOARD -->
+  <div class="arisan-card">
+    <h2>🏆 KOCOK ARISAN ASEAN 🏆</h2>
+    
+    <!-- Pilih Negara Target (TKW/TKI) -->
+    <div class="form-group">
+      <label>Pilih Kelompok Negara ASEAN</label>
+      <div class="asean-grid">
+        <button class="negara-btn active" onclick="pilihNegara('🇸🇬 Singapura', 50000, this)">
+          <span>🇸🇬</span> Singapura (Rp 50rb)
+        </button>
+        <button class="negara-btn" onclick="pilihNegara('🇲🇾 Malaysia', 25000, this)">
+          <span>🇲🇾</span> Malaysia (Rp 25rb)
+        </button>
+        <button class="negara-btn" onclick="pilihNegara('🇧🇳 Brunei', 100000, this)">
+          <span>🇧🇳</span> Brunei (Rp 100rb)
+        </button>
+        <button class="negara-btn" onclick="pilihNegara('🇹🇭 Thailand', 30000, this)">
+          <span>🇹🇭</span> Thailand (Rp 30rb)
+        </button>
+      </div>
+    </div>
+
+    <!-- Input Nama-Nama Anggota Arisan -->
+    <div class="form-group">
+      <label>Daftar Nama Anggota Arisan (Pisahkan dengan koma)</label>
+      <textarea id="namaAnggota" class="form-control" rows="3">Imahazzah, Kurnadi Bewok, Jamhari, Alwi, Sri, Maimunah, Tarjo, Solihin, Sumiati, Rahmat</textarea>
+    </div>
+
+    <!-- Info Potongan Kas -->
+    <div class="form-group" style="background: rgba(201,168,76,0.05); padding: 10px; border-radius: 8px; border: 1.5px dashed var(--emas-tua); font-size: 11px;">
+      📌 <b>Aturan Kas 5%:</b> Setiap putaran pemenang arisan bakal otomatis dipotong **5%** kanggo Kas Keuangan Indramayu Club demi kemaslahatan bersama.
+    </div>
+
+    <button id="btnKocok" class="btn-kocok" onclick="prosesKocokan()">🎰 Mulai Kocok Arisan</button>
+
+    <!-- Animasi Kocok -->
+    <div class="kocokan-container" id="kocokanAnim">
+      <div class="toples-arisan">🏺</div>
+      <p style="color: var(--emas); margin-top: 10px; font-weight: bold;">Sedang mengocok nama arisan...</p>
+    </div>
+
+    <!-- Hasil Pemenang -->
+    <div class="pemenang-box" id="pemenangBox">
+      <h3 style="color: #ffd700; font-family: 'Cinzel', serif;">🎉 SELAMAT! PEMENANG KELUAR! 🎉</h3>
+      <h1 id="namaPemenang" style="font-size: 28px; margin: 10px 0; color: #fff; text-shadow: 0 0 10px var(--emas);">Jamhari</h1>
+      <p id="detailHadiah" style="font-size: 12px; color: #e8d5a0;"></p>
+    </div>
+  </div>
+
+  <!-- RIWAYAT ARISAN -->
+  <div class="riwayat-section">
+    <h3>📋 Catatan Pemenang Arisan Terakhir</h3>
+    <ul class="riwayat-list" id="riwayatArisanList">
+      <li class="riwayat-item" style="color: var(--teks-redup);">Belum ada kocokan arisan di sesi ini.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 INDRAMAYU CLUB • SYSTEM NUR_ENGINE_GATEWAY</p>
+</footer>
+
+<script>
+// Database & State Management
+let negaraTerpilih = "🇸🇬 Singapura";
+let iuranNominal = 50000;
+let saldoUser = parseInt(localStorage.getItem('ic_saldo_nur')) || 1000000;
+
+function updateWalletDisplay() {
+  document.getElementById('saldoCoin').textContent = `Rp ${saldoUser.toLocaleString('id-ID')}`;
+  localStorage.setItem('ic_saldo_nur', saldoUser);
+  
+  // Update Ticker Atas
+  document.getElementById('tickerTrack').innerHTML = `
+    <div class="ticker-item">💰 SALDO UTAMA: <span>Rp ${saldoUser.toLocaleString('id-ID')}</span></div>
+    <div class="ticker-item">🏛️ KAS ATURAN: <span>POTONGAN 5% OTOMATIS</span></div>
+    <div class="ticker-item">🌐 SEKTOR RADAR: <span>NUR 5 CONNECTED</span></div>
+  `;
+}
+
+function pilihNegara(nama, iuran, elemen) {
+  negaraTerpilih = nama;
+  iuranNominal = iuran;
+  
+  // Ganti kelas aktif di tombol
+  document.querySelectorAll('.negara-btn').forEach(btn => btn.classList.remove('active'));
+  elemen.classList.add('active');
+}
+
+function prosesKocokan() {
+  const inputNama = document.getElementById('namaAnggota').value.trim();
+  if (!inputNama) {
+    alert("Ketik daftar nama anggotane dhisik, Bos!");
+    return;
+  }
+
+  const anggota = inputNama.split(',').map(n => n.trim()).filter(n => n.length > 0);
+  if (anggota.length < 2) {
+    alert("Anggota kudu minimal 2 wong kanggo kocokan!");
+    return;
+  }
+
+  // Sembunyikan tombol & Tampilkan animasi kocok
+  document.getElementById('btnKocok').style.display = 'none';
+  document.getElementById('pemenangBox').style.display = 'none';
+  document.getElementById('kocokanAnim').style.display = 'block';
+
+  // Skenario Kocokan Arisan
+  setTimeout(() => {
+    // Cari Pemenang Random
+    const indexPemenang = Math.floor(Math.random() * anggota.length);
+    const pemenang = anggota[indexPemenang];
+
+    // Hitung Nominal Hadiah Arisan
+    const totalArisanRaw = iuranNominal * anggota.length;
+    const potonganKas = totalArisanRaw * 0.05; // Aturan Kas 5%
+    const totalBersihPemenang = totalArisanRaw - potonganKas;
+
+    // Tampilkan Pemenang
+    document.getElementById('kocokanAnim').style.display = 'none';
+    document.getElementById('btnKocok').style.display = 'block';
+    
+    const pemenangBox = document.getElementById('pemenangBox');
+    pemenangBox.style.display = 'block';
+    document.getElementById('namaPemenang').textContent = `🏆 ${pemenang} 🏆`;
+    
+    document.getElementById('detailHadiah').innerHTML = `
+      Kelompok Arisan: <b>${negaraTerpilih}</b><br>
+      Total Iuran Beruntung: <b>Rp ${totalArisanRaw.toLocaleString('id-ID')}</b><br>
+      Potongan Kas Indramayu Club (5%): <span style="color: var(--merah); font-weight: bold;">-Rp ${potonganKas.toLocaleString('id-ID')}</span><br>
+      Nominal Bersih Ditransfer: <span style="color: var(--hijau); font-weight: bold;">Rp ${totalBersihPemenang.toLocaleString('id-ID')}</span>
+    `;
+
+    // Tarik saldo user yen sing menang iku akun user utama
+    if (pemenang.toLowerCase() === 'jamhari' || pemenang.toLowerCase() === 'imahazzah') {
+      saldoUser += totalBersihPemenang;
+      updateWalletDisplay();
+    }
+
+    // Tambahkan Catatan ke Riwayat
+    tambahRiwayatArisan(pemenang, negaraTerpilih, totalBersihPemenang);
+
+    // Suara Notifikasi via Agen Alwi
+    if (typeof bicaraGoogleTTS === 'function') {
+      bicaraGoogleTTS(`Selamat kepada ${pemenang} memenangkan arisan ${negaraTerpilih} senilai bersih Rp ${totalBersihPemenang.toLocaleString('id-ID')}`, 'id');
+    }
+  }, 2500);
+}
+
+function tambahRiwayatArisan(nama, negara, nominal) {
+  const list = document.getElementById('riwayatArisanList');
+  if (list.children[0] && list.children[0].style.color === 'rgb(154, 128, 80)') {
+    list.innerHTML = ''; // Hapus pesan kosong
+  }
+  
+  const jam = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+  const item = document.createElement('li');
+  item.className = 'riwayat-item';
+  item.innerHTML = `
+    <span><b>${nama}</b> (${negara})</span>
+    <span style="color: var(--emas);">Rp ${nominal.toLocaleString('id-ID')} <small style="color:#888;">[${jam}]</small></span>
+  `;
+  list.insertBefore(item, list.firstChild);
+}
+
+// Inisialisasi Pertama
+window.onload = () => {
+  updateWalletDisplay();
+};
+</script>
+
+<!-- Agen Alwi Integrasi -->
+<script src="components/agen_alwi.js"></script>[span_6](start_span)[span_6](end_span)
+</body>
+</html>
+
