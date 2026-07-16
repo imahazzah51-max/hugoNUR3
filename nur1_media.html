@@ -197,8 +197,8 @@
   </div>
   <div class="search-suggest" id="suggestions">
     <div class="suggest-item" onclick="pickSuggest('Indramayu Club Makrifat')">🔍 Indramayu Club Makrifat</div>
-    <div class="suggest-item" onclick="pickSuggest('Nur AI Indramayu')">🔍 Nur AI Indramayu</div>
-    <div class="suggest-item" onclick="pickSuggest('Bank Makrifat Indramayu')">🔍 Bank Makrifat Indramayu</div>
+    <div class="suggest-item" onclick="pickSuggest('KAMUS AGENT Indramayu')">🔍 KAMUS AGENT Indramayu</div>
+    <div class="suggest-item" onclick="pickSuggest('AKADEMI Indramayu')">🔍 AKADEMI Indramayu</div>
     <div class="suggest-item" onclick="pickSuggest('Kamus Bahasa Indramayu')">🔍 Kamus Bahasa Indramayu</div>
   </div>
 </div>
@@ -235,11 +235,11 @@
       <div class="app-icon ic-gdrive">
         <svg viewBox="0 0 87.3 78" width="36" height="36"><path d="M6.6 66.85l3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3L27.5 53H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="M43.65 25L29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3L1.2 48.5c-.8 1.4-1.2 2.95-1.2 4.5h27.5z" fill="#00ac47"/><path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.8l5.9 11.5z" fill="#ea4335"/><path d="M43.65 25L57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="M59.8 53H27.5L13.75 76.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="M73.4 26.5l-12.65-21.9c-.8-1.4-1.95-2.5-3.3-3.3L43.65 25l16.15 28H87.3c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>
       </div>
-      <span class="app-name">Gallery</span>
+      <span class="app-name">💾GUDANG</span>
     </div>
   </div>
 
-  <div class="section-label">🎮 Games</div>
+  <div class="section-label">🎱</div>
   <div class="app-grid">
     <div class="app-item" onclick="openApp('Chess.com','https://www.chess.com/id/play','♟️')">
       <div class="app-icon ic-chess"><span style="font-size:28px;">♟</span></div>
@@ -531,14 +531,14 @@ const AGEN_ALWI_CONFIG = {
 
 const MENU_LAYANAN = {
   'nur1': {
-    label: '🏠 Nur 1 - INDRAMAYU_CLUB',
+    label: '📲 Nur 1 - INDRAMAYU_CLUB',
     desc: 'Portal Utama & Beranda Makrifat',
     pages: [
       { key: 'live', icon: '📺', label: 'Media Utama', url: 'nur1_media.html' }
     ]
   },
   'nur2': {
-    label: '💬 Nur 2 - DASHBOARD SULTAN',
+    label: '💻 Nur 2 - DASHBOARD SULTAN',
     desc: 'Login, Server Raja & Admin Video',
     pages: [
       { key: 'login', icon: '🔐', label: 'Login Sultan', url: 'nur2_login.html' },
@@ -561,7 +561,7 @@ const MENU_LAYANAN = {
     ]
   },
   'nur5': {
-    label: '🎯 Nur 5 - GAME_ARISAN',
+    label: '👜 Nur 5 - GAME_ARISAN',
     desc: 'Menu Utama Modul Arisan',
     pages: [
       { key: 'menu', icon: '🎲', label: 'Menu Utama', url: 'nur5_menu_utama.html' }
@@ -584,21 +584,21 @@ const MENU_LAYANAN = {
     ]
   },
   'nur8': {
-    label: '🌙 Nur 8 - SISTEM & EMULATOR',
+    label: '🕹➕ Nur 8 - SISTEM & EMULATOR',
     desc: 'Emulator & Pemeliharaan',
     pages: [
       { key: 'emulator', icon: '🕹️', label: 'Emulator', url: 'nur8_emulator.html' }
     ]
   },
   'nur9': {
-    label: '🎮 Nur 9 - BACKUP_INDRAMAYU',
+    label: '💾Nur 9 - BACKUP_INDRAMAYU',
     desc: 'cari & Sinkronisasi Sistem',
     pages: [
       { key: 'index', icon: '🔁', label: 'Backup & Sinkron', url: 'nur9/index.html' }
     ]
   },
   'nur10': {
-    label: '👑 Nur 10 - PEWARIS_CAHAYA',
+    label: '⛑️ Nur 10 - PEWARIS_CAHAYA',
     desc: 'Kamus Alwi / Panggung Sultan VVIP',
     pages: [
       { key: 'kamus', icon: '🌟', label: 'Kamus Alwi', url: 'nur10_kamus_alwi.html' }
@@ -745,7 +745,7 @@ function renderAgenAlwiBot() {
   `;
   document.body.insertAdjacentHTML('beforeend', containerHTML);
   setTimeout(() => {
-    tambahPesanAlwiRaw('Assalamu\'alaikum! Saya Agen Alwi.\n\nSistem navigasi diperbarui ke Mode Ikon Visual yang bersahabat untuk layar HP / Termux sempit. Ketik "menu" atau langsung panggil kode Nur.');
+    tambahPesanAlwiRaw('Assalamu\'alaikum! Saya Agen Alwi.\n\nSistem navigasi diperbarui ke Mode Ikon Visual yang bersahabat untuk layar HP dan web server. Ketik "menu" atau langsung panggil kode Nur.');
   }, 500);
 }
 
@@ -856,7 +856,7 @@ function prosesKatalKunciKomplit(teks) {
     }
   }
 
-  tambahPesanAlwiRaw('Perintah tidak dikenali. Ketik kode lengkap seperti "nur9" atau "menu".');
+  tambahPesanAlwiRaw('Perintah tidak dikenali. Ketik kode lengkap seperti "nur1" atau "menu".');
 }
 
 function setupSystemAzan() {

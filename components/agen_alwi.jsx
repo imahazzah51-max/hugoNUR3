@@ -18,7 +18,7 @@ const MENU_LAYANAN = {
     pages: [{ key: 'media', label: 'Media Utama', url: 'nur1_media.html' }]
   },
   'nur2': {
-    label: '💬 Nur 2 - DASHBOARD AKADEMI',
+    label: '💬 Nur 2 - DASHBOARD SULTAN',
     desc: 'Login, King Server & Video Admin',
     pages: [
       { key: 'login', label: 'Login Sultan', url: 'nur2_login.html' },
@@ -29,8 +29,8 @@ const MENU_LAYANAN = {
   'nur3': {
     label: '📊 Nur 3 - ADMINISTRASI',
     desc: 'Morning Finance Dashboard (Kas 5% & Voucher)',
-    pages: [{ key: 'keuangan', label: 'ADMINISTRASI & LOG MEMBER', url: 'nur3_keuangan_pagi.html' }]
-  },AKU
+    pages: [{ key: 'keuangan', label: 'Keuangan Pagi', url: 'nur3_keuangan_pagi.html' }]
+  },
   'nur4': {
     label: '🎨 Nur 4 - KREATOR_DIGITAL',
     desc: 'Digital Asset Management',
@@ -50,8 +50,8 @@ const MENU_LAYANAN = {
     label: '🔊 Nur 7 - STREAMING & LIVE',
     desc: 'Live Member, Streaming & Stage Status',
     pages: [
-      { key: 'live', label: 'Live Member', url: 'nur7b_live_member.html' },
-      { key: 'straming', label: 'Streaming', url: 'nur7a_straming.html' },
+      { key: 'live', label: 'Live Member', url: 'nur7_live_member.html' },
+      { key: 'straming', label: 'Streaming', url: 'nur7.straming.html' },
       { key: 'panggung', label: 'Status Panggung', url: 'nur7_panggung_status.html' }
     ]
   },
@@ -66,7 +66,7 @@ const MENU_LAYANAN = {
     pages: []
   },
   'nur10': {
-    label: '👑 Nur 10 - KAMUS AKADEMISI',
+    label: '👑 Nur 10 - PEWARIS_CAHAYA',
     desc: 'Alwi Dictionary / Sultan VVIP Stage',
     pages: [{ key: 'kamus', label: 'Kamus Alwi', url: 'nur10_kamus_alwi.html' }]
   }
