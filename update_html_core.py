@@ -1,47 +1,84 @@
 import os
+import zipfile
+from pathlib import Path
+import re
 
-html_templates = {
-    "index.html": ("Nur 1 - Ruang Kendali Pusat", "<h1>Pusat Kendali Indramayu Club</h1><p>Status Sistem: Aktif. Mengalihkan ke gerbang utama...</p>"),
-    "login.html": ("Nur 2 - Admin Kendali Sinyal", "<h1>Gerbang Masuk Member</h1><form><input type='text' placeholder='ID Member'><input type='password' placeholder='Sandi'><button>Masuk</button></form>"),
-    "raja.html": ("Nur 2 - Raja Server", "<h1>Panel Akses Raja VVIP</h1><p>Monitoring jaringan dan kestabilan sinyal Telkomsel.</p>"),
-    "komentar.html": ("Nur 3 - Keuangan Pagi", "<h1>Forum Diskusi & Feedback</h1><div id='comments'>Memuat masukan member...</div>"),
-    "properti.html": ("Nur 4 - Aset Digital VVIP", "<h1>Manajemen Properti & GIF</h1><p>Daftar aset digital Indramayu Club Makrifat.</p>"),
-    "kamus.html": ("Nur 5 - Menu Utama Kamus", "<h1>Kamus Arsitektur & Budget Poin</h1><p>Pusat distribusi Voucher dan poin member.</p>"),
-    "KALKULATOR.html": ("Nur 6 - Bank Pusat", "<h1>Kalkulator Konversi & Kas</h1><p>Sistem Pemotongan Otomatis Kas 5% Aktif.</p>"),
-    "live_member.html": ("Nur 7 - Hub Internasional Live", "<h1>Live Monitoring Member</h1><p>Menyapa Pejuang Devisa dengan puitis...</p>"),
-    "Live_vvip.html": ("Nur 7 - Hub Internasional VVIP", "<h1>Panggung Eksklusif VVIP</h1><p>Area komunikasi khusus luar negeri.</p>"),
-    "panggung_status.html": ("Nur 7 - Panggung Status", "<h1>Panggung Status TV</h1><p>Menampilkan hasil_panggung_tv.mp4</p>"),
-    "nur7.html": ("Nur 8 - Security & Arena Game", "<h1>Pusat Pertahanan & Reset Harian</h1><p>Sinkronisasi otomatis harian pukul 18:00 - 19:00.</p>"),
-    "DASHBOARD.html": ("Kamus Alwi - Panel Kontrol Utama", "<h1>Dashboard Utama Ahmad Alwi</h1><p>Panel kendali ahli waris Indramayu Club.</p>")
-}
+IGNORE = {'.git', 'node_modules', '__pycache__', '.krabby', 'Nur8'}
+ROOT = Path(".")
+ZIP_NAME = "hugoNUR3_no_comment.zip"
 
-base_layout = """<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <style>
-        body {{ font-family: sans-serif; background: #121212; color: #fff; padding: 20px; text-align: center; }}
-        .container {{ max-width: 800px; margin: auto; background: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }}
-        h1 {{ color: #00ffcc; }}
-        .footer {{ margin-top: 30px; font-size: 0.8em; color: #888; border-top: 1px solid #333; padding-top: 10px; }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        {content}
-        <div class="footer">
-            Indramayu Club © 2026 | Folder: 03_ADM_KEUANGAN | Di bawah Lindungan Nur Makrifat
-        </div>
-    </div>
-</body>
-</html>"""
+# TAMBAHAN FILTER BENTENG
+BLACKLIST_FILE = {'.env', '.gitignore', 'package.json', 'package-lock.json', ZIP_NAME, "update_html_core.py"}
+BLACKLIST_EXT = {'.xlsx', '.py', '.js', '.json', '.log', '.mp4', '.png', '.jpg', '.jpeg', '.gif', '.ico', '.y', '.jsy', '.htmly'}
 
-for filename, (title, content) in html_templates.items():
-    if os.path.exists(filename):
-        with open(filename, "w", encoding="utf-8") as f:
-            f.write(base_layout.format(title=title, content=content))
-        print(f"[ Sukses ] {filename} berhasil dirombak.")
-    else:
-        print(f"[ Lewat ] {filename} tidak ditemukan di folder saat ini.")
+def get_all_html():
+    files = []
+    for p in ROOT.rglob("*.html"):
+        if any(x in p.parts for x in IGNORE):
+            continue
+        # skip file typo htmly
+        if p.suffix not in ['.html']:
+            continue
+        files.append(p)
+    return files
+
+def bersihkan_dan_suntik_radar(html_file, core_path):
+    try:
+        text = html_file.read_text(encoding='utf-8', errors='ignore')
+        updated = False
+
+        # --- SEKTOR 1: HANCURKAN KOMENTAR ---
+        if 'bukaPopup()' in text or 'btn-komentar' in text or 'popup-komen' in text:
+            text = re.sub(r'<button[^>]*btn-komentar.*?</button>', '', text, flags=re.DOTALL | re.IGNORECASE)
+            text = re.sub(r'<div[^>]*popup-komen.*?</div>\s*</div>', '', text, flags=re.DOTALL | re.IGNORECASE)
+            text = re.sub(r'<div[^>]*id="popupKomentar".*?</div>\s*</div>', '', text, flags=re.DOTALL | re.IGNORECASE)
+            updated = True
+
+        # --- SEKTOR 2: RADAR NUR ---
+        if 'radar.js' not in text:
+            level = len(html_file.relative_to(ROOT).parts) - 1
+            prefix = "../" * level if level > 0 else "./"
+            radar_script = f'\n  <script src="{prefix}03_ADM_KEUANGAN/radar.js"></script>\n</head>'
+            if '</head>' in text:
+                text = text.replace('</head>', radar_script)
+                updated = True
+
+        if updated:
+            html_file.write_text(text, encoding='utf-8')
+            print(f"🛰️ [SINKRONISASI RADAR & CLEAN COMPLETED]: {html_file}")
+
+    except Exception as e:
+        print(f"❌ Gagal memproses {html_file}: {e}")
+
+def update_core():
+    core_path = ROOT / "index.html"
+    if not core_path.exists():
+        print("🚨 index.html utama di root tidak ditemukan!")
+        return
+    print(f"🎬 [NUR_ENGINE] Memulai pemindaian dan penyelarasan sektor HTML...")
+    for html_file in get_all_html():
+        bersihkan_dan_suntik_radar(html_file, core_path)
+
+def zip_project():
+    print(f"\n📦 [PENGEMASAN BENTENG STERIL] Menyusun {ZIP_NAME}...")
+    html_files = get_all_html()
+    
+    with zipfile.ZipFile(ZIP_NAME, 'w', zipfile.ZIP_DEFLATED) as z:
+        # 1. Masukkan semua HTML bersih
+        for html_file in html_files:
+            # Pastikan nama file tidak masuk blacklist eksplisit
+            if html_file.name in BLACKLIST_FILE:
+                continue
+            z.write(html_file)
+
+        # 2. Masukkan aset wajib radar biar gak error 404
+        radar = ROOT / "03_ADM_KEUANGAN" / "radar.js"
+        if radar.exists():
+            z.write(radar)
+            
+    print(f"🏁 [STATUS SYSTEM: CONNECTED]: {ZIP_NAME} STERIL berhasil diluncurkan tanpa sistem komentar!")
+    print(f"   -> Isi: {len(html_files)} file HTML + radar.js (tanpa .env/.xlsx/.py)")
+
+if __name__ == "__main__":
+    update_core()
+    zip_project()
