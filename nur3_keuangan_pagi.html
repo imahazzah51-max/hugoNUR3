@@ -1,17 +1,20 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --putih:       #ffffff;
       --putih-abu:   #f5f5f5;
       --abu-muda:    #e8e8e8;
-      --abu:         #999;                                            --teks:        #1a1a1a;
-      --teks-sub:    #555;                                            --hijau:       #1d6b3a;
+      --abu:         #999;                                            
+      --teks:        #1a1a1a;
+      --teks-sub:    #555;                                            
+      --hijau:       #1d6b3a;
       --hijau-muda:  #27ae60;
       --emas:        #c9a227;
       --emas-terang: #f0c040;
@@ -21,16 +24,25 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
-      height: 100%; width: 100%; overflow: hidden;
+      height: 100%; width: 100%;
       font-family: 'Inter', sans-serif;
-      background: var(--putih-abu);
+      background: #eef2f3; /* Warna background luar agar kontainer lebih menonjol */
       color: var(--teks);
       font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
+    /* ── KONTENIR DIPERKECIL & DIPUSATKAN ── */
     .layout {
-      display: flex; flex-direction: column;
-      height: 100vh; width: 100vw;
+      display: flex; 
+      flex-direction: column;
+      height: 100vh; 
+      width: 100%;
+      max-width: 500px; /* Lebar kontainer diperkecil menjadi ukuran smartphone */
+      background: var(--putih-abu);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Efek bayangan di sisi kontainer */
     }
 
     /* ── HEADER ── */
@@ -121,15 +133,6 @@
       word-break: break-word;
     }
 
-    /* ── SEPARATOR HARI ── */
-    .separator {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 11px; color: var(--abu);
-    }
-    .separator::before, .separator::after {
-      content: ''; flex: 1; height: 1px; background: var(--border);
-    }
-
     /* ── INPUT AREA ── */
     .input-area {
       background: var(--putih);
@@ -137,6 +140,8 @@
       padding: 14px 20px;
       flex-shrink: 0;
       box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+      position: relative;
+      z-index: 10;
     }
 
     .input-nama-wrap {
@@ -183,7 +188,6 @@
     .btn-kirim:hover  { transform: scale(1.08); filter: brightness(1.1); }
     .btn-kirim:active { transform: scale(0.95); }
 
-    /* Aksen strip emas bawah header */
     .emas-strip {
       height: 3px;
       background: linear-gradient(90deg, var(--hijau) 0%, var(--emas) 50%, var(--hijau) 100%);
@@ -193,10 +197,10 @@
     @keyframes geser { 0%{background-position:0%} 100%{background-position:200%} }
   </style>
 
-  
   <script src="./03_ADM_KEUANGAN/radar.js"></script>
 </head>
 <body>
+
 <div class="layout">
 
   <!-- HEADER -->
@@ -238,6 +242,7 @@
 
 </div>
 
+<!-- SYSTEM MANAGEMENT ENGINE -->
 <script>
   function waktuSekarang() {
     return new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -292,12 +297,10 @@
       return;
     }
 
-    // Tampilkan dulu di UI lokal
     tambahPesan(nama, pesan);
     pesanEl.value = '';
     pesanEl.style.height = 'auto';
 
-    // Kirim ke Google Apps Script backend
     if (typeof google !== 'undefined' && google.script) {
       google.script.run
         .withSuccessHandler(function(msg) {
@@ -309,23 +312,26 @@
         .prosesDiskusi({ nama, pesan }, null);
     }
   }
-<!-- ============================================================
-     INIT & RUNNING SYSTEM
-     ============================================================ -->
+</script>
+
+<!-- INIT & RUNNING SYSTEM -->
 <script>
-  buildDots();
-  applyWallpaper(0);
-  startWallpaperTimer();
-  buildGallery();
+  try {
+    buildDots();
+    applyWallpaper(0);
+    startWallpaperTimer();
+    buildGallery();
+  } catch(e) {
+    console.log("Inisialisasi visual dilewati.");
+  }
 
-  document.getElementById('peringatan-drive-modal').addEventListener('click', function(e) {
-    if(e.target === this) tutupPeringatan();
-  });
-</script> 
-
-<!-- ⛑️ ALWI grandlew-->
-<script src="components/agen_alwi.js"></script>
-
+  try {
+    document.getElementById('peringatan-drive-modal').addEventListener('click', function(e) {
+      if(e.target === this) tutupPeringatan();
+    });
+  } catch(e) {}
+</script>
 
 </body>
 </html>
+

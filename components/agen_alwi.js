@@ -30,7 +30,7 @@ const MENU_LAYANAN = {
     label: '📊 Nur 3 - ADMINISTRASI',
     desc: 'Morning Finance Dashboard (Kas 5% & Voucher)',
     pages: [{ key: 'keuangan', label: 'ADMINISTRASI & LOG MEMBER', url: 'nur3_keuangan_pagi.html' }]
-  },AKU
+  },
   'nur4': {
     label: '🎨 Nur 4 - KREATOR_DIGITAL',
     desc: 'Digital Asset Management',
@@ -44,14 +44,14 @@ const MENU_LAYANAN = {
   'nur6': {
     label: '💰 Nur 6 - BANK_GAME',
     desc: 'Vault Kas & Finance Admin',
-    pages: [{ key: 'adm', label: 'Folder Admin Keuangan', url: '03_ADM_KEUANGAN/' }]
+    pages: [{ key: 'adm', label: 'Administrasi Keuangan', url: '03_ADM_KEUANGAN.html' }]
   },
   'nur7': {
     label: '🔊 Nur 7 - STREAMING & LIVE',
     desc: 'Live Member, Streaming & Stage Status',
     pages: [
       { key: 'live', label: 'Live Member', url: 'nur7b_live_member.html' },
-      { key: 'straming', label: 'Streaming', url: 'nur7a_straming.html' },
+      { key: 'straming', label: 'Streaming', url: 'nur7a_streaming.html' },
       { key: 'panggung', label: 'Status Panggung', url: 'nur7_panggung_status.html' }
     ]
   },
@@ -61,9 +61,9 @@ const MENU_LAYANAN = {
     pages: [{ key: 'emulator', label: 'Emulator', url: 'nur8_emulator.html' }]
   },
   'nur9': {
-    label: '🎮 Nur 9 - GAME_INDRAMAYU',
-    desc: 'Not available on server yet',
-    pages: []
+    label: '🎮 Nur 9 - SINKRONISASI DATA',
+    desc: 'Protokol Sinkronisasi & Backup Data',
+    pages: [{ key: 'sinkron', label: 'Protokol Sinkron', url: 'nur9_index2222.html' }]
   },
   'nur10': {
     label: '👑 Nur 10 - KAMUS AKADEMISI',
@@ -71,6 +71,8 @@ const MENU_LAYANAN = {
     pages: [{ key: 'kamus', label: 'Kamus Alwi', url: 'nur10_kamus_alwi.html' }]
   }
 };
+
+  
 
 const JADWAL_AZAN = {
   subuh: { waktu: '04:30', nama: 'Subuh' },

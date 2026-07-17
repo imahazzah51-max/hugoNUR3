@@ -159,7 +159,6 @@ body::before {
 body { top: 0px !important; }
 </style>
 
-  
   <script src="./03_ADM_KEUANGAN/radar.js"></script>
 </head>
 <body>
@@ -198,8 +197,6 @@ body { top: 0px !important; }
     </div>
   </div>
 
-  
-
   <a href="https://www.facebook.com/sharer/sharer.php?u=https://imahazzah51-max.github.io/hugoNUR3/"
      target="_blank" class="btn-sultan" style="background:#25D366">📲 BAGIKAN KE TEMAN</a>
   <a href="https://www.facebook.com/share/1CxZCY8n3d/" target="_blank" class="btn-fb-sultan">
@@ -207,7 +204,7 @@ body { top: 0px !important; }
   </a>
 </div>
 
- id="popupKomentar">
+<div id="popupKomentar">
   <div class="popup-header">
     <button class="popup-back" onclick="tutupPopup()">←</button>
     <div class="popup-htitle">💬 LOG KOMENTAR MEMBER</div>
@@ -276,30 +273,30 @@ function bukaPopup() {
     setTimeout(() => {
       loading.classList.add('hide');
     }, 1500);
-  }, 7000); 
+  }, 7000);
 }
 
 function tutupPopup() {
   const popup = document.getElementById('popupKomentar');
   const iframe = document.getElementById('iframeKomentar');
-  
+
   popup.classList.remove('show');
-  iframe.src = "about:blank"; 
+  iframe.src = "about:blank";
   clearTimeout(loadingTimeout);
 }
 
 function muatUlangIframe() {
   const loading = document.getElementById('popupLoading');
   const loadingText = document.getElementById('loadingText');
-  
+
   loading.classList.remove('hide');
   loadingText.innerText = "Menyegarkan antrean...";
-  
+
   const iframe = document.getElementById('iframeKomentar');
   iframe.src = urlLogKomentar + '?t=' + Date.now();
 }
 </script>
-<script src="agen_alwi.js"></script>
+<script src="components/agen_alwi.js"></script>
 </body>
 </html>
 
