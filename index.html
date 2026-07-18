@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -79,11 +79,11 @@ body::before {
 }
 .dropup-content {
   display:none; position:absolute;
-  top:100%; left:0; width:100%;
+  bottom:100%; left:0; width:100%;
   background:#111; border:2px solid rgba(201,168,76,0.5);
-  border-radius:10px; margin-top:8px;
+  border-radius:10px; margin-bottom:8px;
   max-height:280px; overflow-y:auto; z-index:1000;
-  box-shadow:0 8px 30px rgba(0,0,0,0.8);
+  box-shadow:0 -8px 30px rgba(0,0,0,0.8);
 }
 .dropup-content::-webkit-scrollbar { width:4px; }
 .dropup-content::-webkit-scrollbar-thumb { background:#C9A84C; border-radius:10px; }
@@ -105,7 +105,7 @@ body::before {
   width:100%; padding:11px; background:#1a6b3a;
   border:1px solid rgba(201,168,76,0.4);
   color:#FFD700; font-size:13px; font-weight:700;
-  border-radius:10px; cursor:pointer;
+  border-radius:10px; cursor:pointer; text-align:center;
   font-family:'Inter',Arial,sans-serif;
 }
 .btn-komentar:active { opacity:0.8; }
@@ -176,6 +176,7 @@ body { top: 0px !important; }
 
   <a href="nur1_media.html" class="btn-sultan">🏁 MASUK KE HALAMAN UTAMA 📲</a>
 
+  <!-- Dropup Berhasil Diperbaiki (Arah Muncul ke Atas secara Tepat) -->
   <div class="dropup">
     <button class="dropup-btn" onclick="toggleDropup(event)">🏛️ DAFTAR MENU NUR ▾</button>
     <div class="dropup-content" id="myDropup">
@@ -197,6 +198,9 @@ body { top: 0px !important; }
     </div>
   </div>
 
+  <!-- Tombol Pemicu Log Komentar Diaktifkan -->
+  <button class="btn-komentar" onclick="bukaPopup()">💬 LOG KOMENTAR MEMBER</button>
+
   <a href="https://www.facebook.com/sharer/sharer.php?u=https://imahazzah51-max.github.io/hugoNUR3/"
      target="_blank" class="btn-sultan" style="background:#25D366">📲 BAGIKAN KE TEMAN</a>
   <a href="https://www.facebook.com/share/1CxZCY8n3d/" target="_blank" class="btn-fb-sultan">
@@ -204,7 +208,8 @@ body { top: 0px !important; }
   </a>
 </div>
 
-<div id="popupKomentar">
+<!-- Struktur Pop-up Kontainer Komentar -->
+<div id="popupKomentar" class="popup-komen">
   <div class="popup-header">
     <button class="popup-back" onclick="tutupPopup()">←</button>
     <div class="popup-htitle">💬 LOG KOMENTAR MEMBER</div>
